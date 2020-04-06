@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 
 public class AvdelingDAO {
 
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("ansattPU");
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("avdelingPU");
 
 	public void lagreNyAvdeling(Avdeling ny) {
 

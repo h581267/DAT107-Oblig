@@ -19,7 +19,7 @@ CREATE TABLE Ansatt
 	ansattdato date NOT NULL, 
 	stilling varchar, 
 	mndlonn DECIMAL NOT NULL,
-	avdNr integer NOT null,
+	avdNr integer,
 	prosjektnr integer,
 	CONSTRAINT AvdelingFK FOREIGN KEY (avdNr) REFERENCES Avdeling(avdNr)
 ); 
@@ -35,3 +35,10 @@ CREATE TABLE Prosjekt
 	CONSTRAINT ProsjektPK PRIMARY KEY (prosjektNr)
 );
 
+INSERT INTO Avdeling(Navn)
+VALUES ('Service');
+
+INSERT INTO Ansatt(fornavn, etternavn,brukernavn, ansattdato, mndlonn, avdNr)
+VALUES('Aleksander', 'Eriksen','ALER', '2012-06-27', 1400000, 1); 
+
+UPDATE Avdeling SET sjefId = 1 WHERE avdNr = 1; 

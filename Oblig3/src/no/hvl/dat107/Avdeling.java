@@ -68,5 +68,4 @@ public class Avdeling {
 		return avdnr + ", " + navn + "\nSjefId:" + sjefId + "\n";
 	}
 	
-	
 }

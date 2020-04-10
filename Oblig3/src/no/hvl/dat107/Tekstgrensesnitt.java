@@ -1,10 +1,12 @@
 package no.hvl.dat107;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Tekstgrensesnitt {
 
 	private Scanner tastatur;
+	private AvdelingDAO avd;
 	
 	public Tekstgrensesnitt(Scanner tastatur) {
 		this.tastatur = tastatur;
@@ -71,6 +73,29 @@ public class Tekstgrensesnitt {
 	
 	public void visAvdelingPk(AvdelingDAO avd, int id) {
 		System.out.print(avd.finnAvdelingMedPk(id));
+	}
+	
+	public void visAlleAnsatteIAvdeling(int id, AvdelingDAO avd, AnsattDAO dao) {
+        Avdeling aktuell = avd.finnAvdelingMedPk(id);
+        int sjef = aktuell.getSjefId();
+        Ansatt aSjef = dao.finnAnsattMedPk(sjef);
+        System.out.print("---------------------------------\nSjefen for avdeling : \n" + aSjef.toString());
+        System.out.println("---------------------------------");
+        List<Ansatt> liste = aktuell.getAnsatte();
+        for(Ansatt ans : liste) {
+            if (ans.getAnsattId() != sjef) {
+                System.out.println(ans);
+            }
+        }
+
+    }
+	
+	public void oppdaterAvdnr(AnsattDAO ans, int id, int avdnr) {
+		ans.oppdaterAvdeling(id, avdnr);
+	}
+	
+	public void oppdaterSjefId(AvdelingDAO avd, int id, int sjefId) {
+		avd.oppdaterSjefid(id, sjefId);
 	}
 	
 	public void oppdaterLonn(AnsattDAO ans, int id, double nyLonn) {

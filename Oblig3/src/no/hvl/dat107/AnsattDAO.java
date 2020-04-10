@@ -9,13 +9,13 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 public class AnsattDAO {
-	
+
 	private EntityManagerFactory emf;
-	
+
 	public AnsattDAO() {
-        emf = Persistence.createEntityManagerFactory("ansattPU");
-    }
-	
+		emf = Persistence.createEntityManagerFactory("ansattPU");
+	}
+
 	public void lagreNyAnsatt(Ansatt ny) {
 
 		EntityManager em = emf.createEntityManager();
@@ -39,23 +39,23 @@ public class AnsattDAO {
 	}
 
 	public Ansatt finnAnsattMedBrukernavn(String brukernavn) {
-		
+
 		EntityManager em = emf.createEntityManager();
-		
+
 		try {
-			TypedQuery<Ansatt> query = em.createQuery(
-					"SELECT t FROM Ansatt t WHERE t.brukernavn LIKE :brukernavn", Ansatt.class);
+			TypedQuery<Ansatt> query = em.createQuery("SELECT t FROM Ansatt t WHERE t.brukernavn LIKE :brukernavn",
+					Ansatt.class);
 			query.setParameter("brukernavn", brukernavn);
-			
-			return query.getSingleResult(); //NB! Exception hvis ingen eller flere resultater
-		
+
+			return query.getSingleResult(); // NB! Exception hvis ingen eller flere resultater
+
 		} finally {
 			em.close();
 		}
 	}
 
 	public Ansatt finnAnsattMedPk(int pk) {
-		
+
 		EntityManager em = emf.createEntityManager();
 
 		try {
@@ -65,31 +65,29 @@ public class AnsattDAO {
 			em.close();
 		}
 	}
-	
-	
+
 	public List<Ansatt> finnAlleAnsatte() {
-		
-		EntityManager em = emf.createEntityManager();		
+
+		EntityManager em = emf.createEntityManager();
 		try {
-			TypedQuery<Ansatt> query = em.createQuery(
-					"SELECT t FROM Ansatt t", Ansatt.class);			
-			return query.getResultList();		
+			TypedQuery<Ansatt> query = em.createQuery("SELECT t FROM Ansatt t", Ansatt.class);
+			return query.getResultList();
 		} finally {
 			em.close();
 		}
 	}
 
 	public void oppdaterStilling(int id, String tekst) {
-		
+
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
-		
+
 		try {
 			tx.begin();
-			
-			Ansatt managedAnsatt = em.find(Ansatt.class, id);			
+
+			Ansatt managedAnsatt = em.find(Ansatt.class, id);
 			managedAnsatt.setStilling(tekst);
-			
+
 			tx.commit();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -100,18 +98,47 @@ public class AnsattDAO {
 			em.close();
 		}
 	}
-	
+
 	public void oppdaterLonn(int id, double mndlonn) {
-		
+
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
-		
+
 		try {
 			tx.begin();
-			
-			Ansatt managedAnsatt = em.find(Ansatt.class, id);			
+
+			Ansatt managedAnsatt = em.find(Ansatt.class, id);
 			managedAnsatt.setMndLonn(mndlonn);
-			
+
+			tx.commit();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+		} finally {
+			em.close();
+		}
+	}
+
+	public void oppdaterAvdeling(int id, int avdnr) {
+
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+
+		try {
+			tx.begin();
+
+			AvdelingDAO avdDAO = new AvdelingDAO();
+			Ansatt managedAnsatt = em.find(Ansatt.class, id);
+			boolean sjef = false;
+			Avdeling avd = avdDAO.finnAvdelingMedPk(managedAnsatt.getAvdNr());
+
+			if (avd.getSjefId() == managedAnsatt.getAnsattId()) {
+				System.out.println("Kan ikke endre fordi den ansatte er sjef i avdeling");
+			} else {
+				managedAnsatt.setAvdNr(avdnr);
+			}
 			tx.commit();
 		} catch (Throwable e) {
 			e.printStackTrace();

@@ -39,6 +39,6 @@ INSERT INTO Avdeling(Navn)
 VALUES ('Service');
 
 INSERT INTO Ansatt(fornavn, etternavn,brukernavn, ansattdato, mndlonn, avdNr)
-VALUES('Aleksander', 'Eriksen','ALER', '2012-06-27', 1400000, 1); 
+VALUES('Mads', 'Hetlevik','MAHE', '2012-06-27', 1400000, 1); 
 
 UPDATE Avdeling SET sjefId = 1 WHERE avdNr = 1; 

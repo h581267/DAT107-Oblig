@@ -28,7 +28,7 @@ public class Ansatt {
 	private int avdNr;
 	
 	@ManyToOne
-	@JoinColumn(name = "avdnr", referencedColumnName = "avdnr")
+	@JoinColumn(name = "avdnr", referencedColumnName = "avdnr",  insertable = false, updatable = false)
 	private Avdeling avdeling;
 
 	public Ansatt() {

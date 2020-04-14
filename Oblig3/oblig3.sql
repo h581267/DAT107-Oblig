@@ -35,17 +35,6 @@ CREATE TABLE Prosjekt
 	CONSTRAINT ProsjektPK PRIMARY KEY (prosjektNr)
 );
 
-CREATE TABLE Prosjektdeltagelse
-(
-ansattId INTEGER,
-prosjektId INTEGER,
-timer INTEGER,
-roller varchar,
-CONSTRAINT ProsjektdeltagelsePK PRIMARY KEY (ansattId, prosjektId),
-CONSTRAINT AnsattFK FOREIGN KEY (ansattId) REFERENCES Ansatt(ansattId),
-CONSTRAINT ProsjektFK FOREIGN KEY (prosjektId) REFERENCES Prosjekt(prosjektNr)
-);
-
 INSERT INTO Avdeling(Navn)
 VALUES ('Service');
 

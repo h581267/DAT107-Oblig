@@ -8,10 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import no.hvl.dat107.entity.Ansatt;
-import no.hvl.dat107.entity.Avdeling;
-import no.hvl.dat107.entity.Prosjekt;
-
 public class AnsattDAO {
 
 	private EntityManagerFactory emf;
@@ -143,54 +139,6 @@ public class AnsattDAO {
 			} else {
 				managedAnsatt.setAvdNr(avdnr);
 			}
-			tx.commit();
-		} catch (Throwable e) {
-			e.printStackTrace();
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-		} finally {
-			em.close();
-		}
-	}
-
-	public void registrerProsjektdeltagelse(int ansattId, int prosjektId) {
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		try {
-			tx.begin();
-
-			Ansatt a = em.find(Ansatt.class, ansattId);
-			Prosjekt p = em.find(Prosjekt.class, prosjektId);
-			
-			a.leggTilProsjekt(p);
-			p.leggTilAnsatt(a);
-
-			tx.commit();
-		} catch (Throwable e) {
-			e.printStackTrace();
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-		} finally {
-			em.close();
-		}
-	}
-
-	public void registrerProsjektdeltagelse(Ansatt a, Prosjekt p) {
-
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		try {
-			tx.begin();
-
-			a = em.merge(a);
-			p = em.merge(p);
-			
-			a.leggTilProsjekt(p);
-			p.leggTilAnsatt(a);
-
-
 			tx.commit();
 		} catch (Throwable e) {
 			e.printStackTrace();

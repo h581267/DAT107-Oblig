@@ -3,7 +3,7 @@ package no.hvl.dat107.klient;
 import java.util.List;
 import java.util.Scanner;
 
-import no.hvl.dat107.dao.AnsattDAO;
+import no.hvl.dat107.AnsattDAO;
 import no.hvl.dat107.dao.AvdelingDAO;
 import no.hvl.dat107.entity.Ansatt;
 import no.hvl.dat107.entity.Avdeling;

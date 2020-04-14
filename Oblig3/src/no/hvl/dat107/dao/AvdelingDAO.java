@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import no.hvl.dat107.AnsattDAO;
 import no.hvl.dat107.entity.Avdeling;
 
 public class AvdelingDAO {

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import no.hvl.dat107.dao.AnsattDAO;
+import no.hvl.dat107.AnsattDAO;
 import no.hvl.dat107.dao.AvdelingDAO;
 
 public class Meny {

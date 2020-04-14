@@ -1,6 +1,8 @@
-package no.hvl.dat107;
+package no.hvl.dat107.entity;
 
 import java.time.LocalDate;
+import java.util.List;
+
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -30,6 +33,11 @@ public class Ansatt {
 	@ManyToOne
 	@JoinColumn(name = "avdnr", referencedColumnName = "avdnr",  insertable = false, updatable = false)
 	private Avdeling avdeling;
+	
+	@ManyToMany
+	@JoinColumn(name = "prosjektId")
+	List<Prosjekt> prosjekter;
+	
 
 	public Ansatt() {
 	}
@@ -107,6 +115,10 @@ public class Ansatt {
 
 	public void setAnsattId(int ansattId) {
 		this.ansattId = ansattId;
+	}
+	
+	public void leggTilProsjekt(Prosjekt p) {
+		prosjekter.add(p);
 	}
 
 	@Override

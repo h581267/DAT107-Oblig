@@ -1,4 +1,4 @@
-package no.hvl.dat107;
+package no.hvl.dat107.dao;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+
+import no.hvl.dat107.entity.Avdeling;
 
 public class AvdelingDAO {
 

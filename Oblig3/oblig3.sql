@@ -35,10 +35,21 @@ CREATE TABLE Prosjekt
 	CONSTRAINT ProsjektPK PRIMARY KEY (prosjektNr)
 );
 
+CREATE TABLE Prosjektdeltagelse
+(
+ansattId INTEGER,
+prosjektId INTEGER,
+timer INTEGER,
+roller varchar,
+CONSTRAINT ProsjektdeltagelsePK PRIMARY KEY (ansattId, prosjektId),
+CONSTRAINT AnsattFK FOREIGN KEY (ansattId) REFERENCES Ansatt(ansattId),
+CONSTRAINT ProsjektFK FOREIGN KEY (prosjektId) REFERENCES Prosjekt(prosjektNr)
+);
+
 INSERT INTO Avdeling(Navn)
 VALUES ('Service');
 
-INSERT INTO Ansatt(fornavn, etternavn,brukernavn, ansattdato, mndlonn, avdNr)
-VALUES('Mads', 'Hetlevik','MAHE', '2012-06-27', 1400000, 1); 
+INSERT INTO Ansatt(fornavn, etternavn,brukernavn, ansattdato, stilling, mndlonn, avdNr)
+VALUES('Mads', 'Hetlevik','MAHE', '2012-06-27','Servicesjef', 1400000, 1); 
 
 UPDATE Avdeling SET sjefId = 1 WHERE avdNr = 1; 

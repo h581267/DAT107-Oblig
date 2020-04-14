@@ -1,4 +1,9 @@
-package no.hvl.dat107;
+package no.hvl.dat107.klient;
+
+import no.hvl.dat107.dao.AnsattDAO;
+import no.hvl.dat107.dao.AvdelingDAO;
+import no.hvl.dat107.entity.Ansatt;
+import no.hvl.dat107.entity.Avdeling;
 
 public class Main {
 

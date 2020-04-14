@@ -1,8 +1,11 @@
-package no.hvl.dat107;
+package no.hvl.dat107.klient;
 
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
+
+import no.hvl.dat107.dao.AnsattDAO;
+import no.hvl.dat107.dao.AvdelingDAO;
 
 public class Meny {
 

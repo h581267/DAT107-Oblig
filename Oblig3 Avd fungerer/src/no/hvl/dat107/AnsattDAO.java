@@ -149,4 +149,54 @@ public class AnsattDAO {
 			em.close();
 		}
 	}
+
+	public void registrerProsjektdeltagelse(int aid, int pid) {
+
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+
+			Ansatt a = em.find(Ansatt.class, aid);
+			Prosjekt p = em.find(Prosjekt.class, pid);
+
+			Prosjektdeltagelse pd = new Prosjektdeltagelse(a, p, 0);
+
+			em.persist(pd);
+
+			tx.commit();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+		} finally {
+			em.close();
+		}
+
+	}
+
+	public void oppdaterTimerProsjektForAnsatt(int idA, int idB, int timer) {
+
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+
+			ProsjektdeltagelsePK pk = new ProsjektdeltagelsePK(idA, idB);
+			Prosjektdeltagelse pd = em.find(Prosjektdeltagelse.class, pk);
+
+			pd.leggTilTimer(timer);
+		
+			tx.commit();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+		} finally {
+			em.close();
+		}
+	}
+
 }

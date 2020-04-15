@@ -1,6 +1,7 @@
 package no.hvl.dat107;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +32,9 @@ public class Ansatt {
 	@ManyToOne
 	@JoinColumn(name = "avdnr", referencedColumnName = "avdnr",  insertable = false, updatable = false)
 	private Avdeling avdeling;
+	
+	@OneToMany(mappedBy="ansatt")
+    private List<Prosjektdeltagelse> deltagelser;
 
 	public Ansatt() {
 	}
@@ -115,5 +120,13 @@ public class Ansatt {
 				+ "\nAnsattdato: " + ansattdato + "\nMånedslønn: " + mndlonn + "\nAvdelingsNr: " + avdNr + "\n\n";
 
 	}
+	
+	  public void leggTilProsjektdeltagelse(Prosjektdeltagelse prosjektdeltagelse) {
+	        deltagelser.add(prosjektdeltagelse);
+	    }
+
+	    public void fjernProsjektdeltagelse(Prosjektdeltagelse prosjektdeltagelse) {
+	        deltagelser.remove(prosjektdeltagelse);
+	    }
 
 }

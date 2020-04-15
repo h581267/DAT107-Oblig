@@ -6,7 +6,8 @@ public class KlientMain {
 		
 		AnsattDAO ans = new AnsattDAO();
 		AvdelingDAO avd = new AvdelingDAO();
-		Meny meny = new Meny(ans, avd);
+		ProsjektDAO pro = new ProsjektDAO();
+		Meny meny = new Meny(ans, avd, pro);
 		
 		meny.start();
 

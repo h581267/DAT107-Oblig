@@ -59,6 +59,16 @@ public class Tekstgrensesnitt {
 		return retur;
 	}
 	
+	public Prosjekt lesInnProsjekt() {
+		String navn;
+		
+		tastatur = new Scanner(System.in);
+		System.out.print("Skriv inn Prosjektnavn: ");
+		navn = tastatur.nextLine();
+		Prosjekt retur = new Prosjekt(navn);
+		return retur;
+	}
+	
 	public void visAlleAnsatte(AnsattDAO ans) {
 		System.out.print(ans.finnAlleAnsatte());
 	}

@@ -9,13 +9,15 @@ public class Meny {
 	private Tekstgrensesnitt tekstgr;
 	private AnsattDAO ansDAO;
 	private AvdelingDAO avdDAO;
+	private ProsjektDAO proDAO;
 	private boolean stopp;
 	private Scanner tastatur;
 
-	public Meny(AnsattDAO ansDAO, AvdelingDAO avdDAO) {
+	public Meny(AnsattDAO ansDAO, AvdelingDAO avdDAO, ProsjektDAO proDAO) {
 		tekstgr = new Tekstgrensesnitt(tastatur);
 		this.ansDAO = ansDAO;
 		this.avdDAO = avdDAO;
+		this.proDAO = proDAO;
 		tastatur = new Scanner(System.in);
 	}
 
@@ -30,8 +32,9 @@ public class Meny {
 	public void action(Scanner tastatur) {
 
 		System.out.println(
-				"1.Legg til ansatt\n2.Skriv ut alle ansatte\n3.Søk etter brukernavn\n4.Søk etter ansatt id\n5.Oppdater lønn\n6.Oppdater Avdeling for ansatt"
-				+ "\n7.Legg til avdeling\n8.Søk etter avdeling id\n9.Skriv ut alle ansatte i avdeling\n10.Oppdater SjefID\n11.Avslutt");
+				"\n1.Legg til ansatt\n2.Skriv ut alle ansatte\n3.Søk etter brukernavn\n4.Søk etter ansatt id\n5.Oppdater lønn\n6.Oppdater Avdeling for ansatt"
+				+ "\n7.Legg til avdeling\n8.Søk etter avdeling id\n9.Skriv ut alle ansatte i avdeling\n10.Oppdater SjefID\n11.Legg inn prosjekt\n12.Registrer projektdeltakelse"
+				+ "\n13.Legg til timer i prosjekt\n14.Skriv ut prosjekt\n16.Avslutt");
 		
 		System.out.println("Skriv inn hva du ønsker å gjøre: ");
 		int a = Integer.parseInt(tastatur.nextLine());
@@ -98,6 +101,34 @@ public class Meny {
 			action(tastatur);
 			break;
 		case 11:
+			proDAO.lagreNyttProsjekt(tekstgr.lesInnProsjekt());
+			action(tastatur);
+			break;
+		case 12:
+			System.out.print("Skriv inn AnsattID: ");
+			int idA = Integer.parseInt(tastatur.nextLine());
+			System.out.print("Skriv inn ProsjektID den ansatte skal knyttes til: ");
+			int idP = Integer.parseInt(tastatur.nextLine());
+			ansDAO.registrerProsjektdeltagelse(idA, idP);
+			action(tastatur);
+			break;
+		case 13:
+			System.out.print("Skriv inn AnsattID: ");
+			int idA1 = Integer.parseInt(tastatur.nextLine());
+			System.out.print("Skriv inn ProsjektID til prosjektet timene skal legges til: ");
+			int idP1 = Integer.parseInt(tastatur.nextLine());
+			System.out.print("Skriv inn antall timer: ");
+			int timer = Integer.parseInt(tastatur.nextLine());
+			ansDAO.oppdaterTimerProsjektForAnsatt(idA1, idP1, timer);
+			action(tastatur);
+			break;
+		case 14:
+			System.out.print("Skriv inn ProsjektID: ");
+			int idP2 = Integer.parseInt(tastatur.nextLine());
+			proDAO.skrivUtProsjekt(idP2);
+			action(tastatur);
+			break;
+		case 16:
 			stopp = true;
 			tastatur.close();
 			break;

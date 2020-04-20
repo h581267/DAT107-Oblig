@@ -23,7 +23,7 @@ public class Avdeling {
 	
 	@OneToMany
 	(mappedBy = "avdeling", fetch = FetchType.EAGER)
-	private List<Ansatt> ansatte;
+	List<Ansatt> ansatte;
 	
 	public Avdeling() {}
 	
@@ -62,6 +62,10 @@ public class Avdeling {
 	
 	public void leggTilAnsatt(Ansatt ans) {
 		ansatte.add(ans);
+	}
+	
+	public void slettAnsatt(Ansatt ans) {
+		ansatte.remove(ans);
 	}
 	
 	public String toString() {

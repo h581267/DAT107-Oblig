@@ -46,9 +46,9 @@ CREATE TABLE Prosjektdeltagelse
 );
 
 INSERT INTO Avdeling(Navn)
-VALUES ('Service');
+VALUES ('Salg');
 
 INSERT INTO Ansatt(fornavn, etternavn,brukernavn,stilling, ansattdato, mndlonn, avdNr)
-VALUES('Mads', 'Hetlevik','MAHE','Servicesjef', '2012-06-27', 1400000, 1); 
+VALUES('Petter', 'Olsen','PEOL','Salgssjef', '2012-06-27', 1400000, 1); 
 
 UPDATE Avdeling SET sjefId = 1 WHERE avdNr = 1; 

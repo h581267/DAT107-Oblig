@@ -132,12 +132,16 @@ public class AnsattDAO {
 			AvdelingDAO avdDAO = new AvdelingDAO();
 			Ansatt managedAnsatt = em.find(Ansatt.class, id);
 			boolean sjef = false;
-			Avdeling avd = avdDAO.finnAvdelingMedPk(managedAnsatt.getAvdNr());
+			Avdeling avdOld = em.find(Avdeling.class, managedAnsatt.getAvdNr());
+			Avdeling avdNy = em.find(Avdeling.class, avdnr);
+			
 
-			if (avd.getSjefId() == managedAnsatt.getAnsattId()) {
+			if (avdOld.getSjefId() == id) {
 				System.out.println("Kan ikke endre fordi den ansatte er sjef i avdeling");
 			} else {
 				managedAnsatt.setAvdNr(avdnr);
+				avdOld.slettAnsatt(managedAnsatt);
+				avdNy.leggTilAnsatt(managedAnsatt);
 			}
 			tx.commit();
 		} catch (Throwable e) {
